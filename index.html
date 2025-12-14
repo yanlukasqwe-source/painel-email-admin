@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Painel Admin de Email</title>
+  <style>
+    body { font-family: Arial; background: #f1f3f4; padding: 20px; }
+    h1 { margin-bottom: 20px; }
+    .box { background: #fff; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+    input, button { padding: 8px; margin: 5px 0; width: 100%; }
+    table { width: 100%; border-collapse: collapse; }
+    td, th { padding: 10px; border-bottom: 1px solid #ddd; }
+  </style>
+</head>
+<body>
+
+<h1>Painel Admin de E-mail</h1>
+
+<div class="box">
+  <h2>Criar conta</h2>
+  <input id="email" placeholder="user@seudominio.com">
+  <input id="senha" placeholder="Senha">
+  <button onclick="criar()">Criar</button>
+</div>
+
+<div class="box">
+  <h2>Contas</h2>
+  <table id="tabela">
+    <tr><th>Email</th><th>Status</th></tr>
+  </table>
+</div>
+
+<script>
+  function criar() {
+    const email = document.getElementById('email').value;
+    if (!email) return;
+
+    const tabela = document.getElementById('tabela');
+    const linha = tabela.insertRow();
+    linha.insertCell(0).innerText = email;
+    linha.insertCell(1).innerText = 'Ativo';
+  }
+</script>
+
+</body>
+</html>
