@@ -1,31 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Painel Admin de Email</title>
+
+<style>
+body {
+  font-family: Arial;
+  background: #f1f3f4;
+  padding: 20px;
+}
+.box {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+input, button {
+  padding: 10px;
+  width: 100%;
+  margin-top: 10px;
+}
+table {
+  width: 100%;
+  margin-top: 10px;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Painel Admin de E-mail</h1>
+
+<div class="box">
+  <h2>Criar conta</h2>
+  <input id="email" placeholder="user@seudominio.com">
+  <button onclick="criar()">Criar</button>
+</div>
+
+<div class="box">
+  <h2>Contas criadas</h2>
+  <table id="tabela">
+    <tr>
+      <th>Email</th>
+      <th>Status</th>
+    </tr>
+  </table>
+</div>
+
 <script>
-  let contas = JSON.parse(localStorage.getItem("contas")) || [];
+let contas = JSON.parse(localStorage.getItem("contas")) || [];
 
-  function salvar() {
-    localStorage.setItem("contas", JSON.stringify(contas));
-  }
+function salvar() {
+  localStorage.setItem("contas", JSON.stringify(contas));
+}
 
-  function render() {
-    const tabela = document.getElementById("tabela");
-    tabela.innerHTML = "<tr><th>Email</th><th>Status</th></tr>";
+function mostrar() {
+  const tabela = document.getElementById("tabela");
+  tabela.innerHTML = "<tr><th>Email</th><th>Status</th></tr>";
 
-    contas.forEach((c, i) => {
-      const linha = tabela.insertRow();
-      linha.insertCell(0).innerText = c.email;
-      linha.insertCell(1).innerText = c.ativo ? "Ativo" : "Inativo";
-    });
-  }
+  contas.forEach(c => {
+    const linha = tabela.insertRow();
+    linha.insertCell(0).innerText = c.email;
+    linha.insertCell(1).innerText = "Ativo";
+  });
+}
 
-  function criar() {
-    const email = document.getElementById("email").value;
-    if (!email) return;
+function criar() {
+  const email = document.getElementById("email").value;
+  if (!email) return;
 
-    contas.push({ email, ativo: true });
-    salvar();
-    render();
+  contas.push({ email });
+  salvar();
+  mostrar();
 
-    document.getElementById("email").value = "";
-  }
+  document.getElementById("email").value = "";
+}
 
-  render();
+mostrar();
 </script>
+
+</body>
+</html>
