@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Painel Admin de Email</title>
+<title>Painel Admin</title>
 
 <style>
 body {
@@ -14,12 +14,16 @@ body {
   background: white;
   padding: 20px;
   border-radius: 8px;
-  margin-bottom: 20px;
+  max-width: 400px;
+  margin: auto;
 }
 input, button {
   padding: 10px;
   width: 100%;
   margin-top: 10px;
+}
+.hidden {
+  display: none;
 }
 table {
   width: 100%;
@@ -35,26 +39,51 @@ th, td {
 
 <body>
 
-<h1>Painel Admin de E-mail</h1>
-
-<div class="box">
-  <h2>Criar conta</h2>
-  <input id="email" placeholder="user@seudominio.com">
-  <button onclick="criar()">Criar</button>
+<!-- LOGIN -->
+<div id="login" class="box">
+  <h2>Login Admin</h2>
+  <input id="senha" type="password" placeholder="Senha">
+  <button onclick="entrar()">Entrar</button>
 </div>
 
-<div class="box">
-  <h2>Contas criadas</h2>
-  <table id="tabela">
-    <tr>
-      <th>Email</th>
-      <th>Status</th>
-    </tr>
-  </table>
+<!-- PAINEL -->
+<div id="painel" class="hidden">
+
+  <h1>Painel Admin de E-mail</h1>
+
+  <div class="box">
+    <h2>Criar conta</h2>
+    <input id="email" placeholder="user@seudominio.com">
+    <button onclick="criar()">Criar</button>
+  </div>
+
+  <div class="box">
+    <h2>Contas criadas</h2>
+    <table id="tabela">
+      <tr>
+        <th>Email</th>
+        <th>Status</th>
+      </tr>
+    </table>
+  </div>
+
 </div>
 
 <script>
+const SENHA_ADMIN = "admin123";
+
 let contas = JSON.parse(localStorage.getItem("contas")) || [];
+
+function entrar() {
+  const senha = document.getElementById("senha").value;
+  if (senha === SENHA_ADMIN) {
+    document.getElementById("login").style.display = "none";
+    document.getElementById("painel").classList.remove("hidden");
+    mostrar();
+  } else {
+    alert("Senha incorreta");
+  }
+}
 
 function salvar() {
   localStorage.setItem("contas", JSON.stringify(contas));
@@ -81,8 +110,6 @@ function criar() {
 
   document.getElementById("email").value = "";
 }
-
-mostrar();
 </script>
 
 </body>
